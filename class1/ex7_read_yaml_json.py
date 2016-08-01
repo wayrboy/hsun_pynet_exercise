@@ -15,7 +15,7 @@ def main():
         yaml_list = yaml.load(stream)
 
     with open(json_file) as stream:
-        json_list = json.load(stream)
+        json_list = json.load(stream) 
 
     print "This is a YAML reading", "\n"
     pprint(yaml_list)
