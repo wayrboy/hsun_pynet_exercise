@@ -1,11 +1,12 @@
 #!/usr/bin/env python
-
-import yaml
 import json
+import yaml
 
 def main():
     '''
-    This python script will create a list, one of the elements is a dictinary (wild python, isn't it?) with at lea    st two keys. Then we are gonna write this list to a file using both YAML and JSON formats.
+    This python script will create a list, one of the elements is a dictinary
+    wild python, isn't it? with at least two keys. 
+    Then we are gonna write this list to a file using both YAML and JSON formats.
     '''
 
     yaml_file = 'yaml_test1.yml'
@@ -16,8 +17,8 @@ def main():
         'snmp_port': '161',
         'ssh_port': '22',
         'username': 'pyclass',
-        'password': '88newclass',
-            }
+        'password': '88newclass'
+    }
 
     list_test1 = [
         'whatever',
@@ -25,21 +26,24 @@ def main():
         23,
         24,
         'hear me roar'
-        ]
+    ]
     
     dicted_list_test1 = [
         'this is a router',
         'the info is as followings:',
-        {'ip_addr': '184.105.247.70', 'snmp_port': '161', 'ssh_port': '22', 'username': 'pyclass', 'password': '88newclass'}, 
+        {'ip_addr': '184.105.247.70',
+         'snmp_port': '161',
+         'ssh_port': '22',
+         'username': 'pyclass',
+         'password': '88newclass'},
         233,
         23333,
         'winter is coming',
-        ]
+    ]
 
 
     with open(yaml_file, 'w') as stream:
         stream.write(yaml.dump(dicted_list_test1, default_flow_style=False))
-    
     with open(json_file, 'w') as stream:
         json.dump(dicted_list_test1, stream)
 
