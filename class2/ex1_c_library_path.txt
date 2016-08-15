@@ -1,0 +1,66 @@
+## my_func.py is located in the same directory as your script
+
+just import my_func
+
+## my_func.py is located in some random subdirectory (not the same directory as your script)
+
+(applied_python)[hsun@ip-172-30-0-4 class2]$ rm my_func.pyc
+(applied_python)[hsun@ip-172-30-0-4 class2]$ mv my_func.py trash_bin/
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+(applied_python)[hsun@ip-172-30-0-4 class2]$ ls -al
+total 24
+drwxrwxr-x 3 hsun hsun 4096 Aug 14 18:45 .
+drwxrwxr-x 5 hsun hsun 4096 Aug 14 07:08 ..
+-rw-rw-r-- 1 hsun hsun  347 Aug 14 07:40 ex1_b_library_version.py
+-rw-rw-r-- 1 hsun hsun   62 Aug 14 07:57 ex1_c_library_path.py
+-rw-rw-r-- 1 hsun hsun  179 Aug 14 18:44 ex1_c_library_path.txt
+drwxrwxr-x 2 hsun hsun 4096 Aug 14 18:45 trash_bin
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+
+  
+## my_func.py is located in the same directory as your script
+
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+(applied_python)[hsun@ip-172-30-0-4 class2]$ env | grep PYT
+PYTHONPATH=/home/hsun/DJANGOX/djproject/
+(applied_python)[hsun@ip-172-30-0-4 class2]$ unset PYTHONPATH
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+(applied_python)[hsun@ip-172-30-0-4 class2]$ env | grep PYT
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+(applied_python)[hsun@ip-172-30-0-4 class2]$ pwd
+/home/hsun/hsun_pynet_exercise/class2
+(applied_python)[hsun@ip-172-30-0-4 class2]$ cd trash_bin/
+(applied_python)[hsun@ip-172-30-0-4 trash_bin]$ pwd
+/home/hsun/hsun_pynet_exercise/class2/trash_bin
+(applied_python)[hsun@ip-172-30-0-4 trash_bin]$ cd ..
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+(applied_python)[hsun@ip-172-30-0-4 class2]$ export PYTHONPATH='/home/hsun/hsun_pynet_exercise/class2/trash_bin/'
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+(applied_python)[hsun@ip-172-30-0-4 class2]$ env | grep PYTPYTHONPATH=/home/hsun/hsun_pynet_exercise/class2/trash_bin/
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+(applied_python)[hsun@ip-172-30-0-4 class2]$ python ex1_c_library_path.py
+Hello
+
+## my_func.py is located in ~/applied_python/lib/python2.7/site-packages/
+
+(applied_python)[hsun@ip-172-30-0-4 class2]$ unset PYTHONPATH
+(applied_python)[hsun@ip-172-30-0-4 class2]$ export PYTHONPATH='PYTHONPATH=/home/hsun/DJANGOX/djproject/'
+(applied_python)[hsun@ip-172-30-0-4 class2]$ 
+(applied_python)[hsun@ip-172-30-0-4 class2]$ cd trash_bin/
+(applied_python)[hsun@ip-172-30-0-4 trash_bin]$ rm my_func.pyc
+(applied_python)[hsun@ip-172-30-0-4 trash_bin]$ python
+Python 2.7.10 (default, Jul 20 2016, 20:53:27) 
+[GCC 4.8.3 20140911 (Red Hat 4.8.3-9)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sys
+>>> print sys.path
+['', 'PYTHONPATH=/home/hsun/DJANGOX/djproject', '/home/hsun/applied_python/local/lib64/python2.7/site-packages', '/home/hsun/applied_python/local/lib/python2.7/site-packages', '/home/hsun/applied_python/lib64/python2.7', '/home/hsun/applied_python/lib/python2.7', '/home/hsun/applied_python/lib64/python2.7/site-packages', '/home/hsun/applied_python/lib/python2.7/site-packages', '/home/hsun/applied_python/lib64/python2.7/lib-dynload', '/usr/lib64/python2.7', '/usr/lib/python2.7']
+>>> 
+>>> exit()
+(applied_python)[hsun@ip-172-30-0-4 trash_bin]$ mv my_func.py /home/hsun/applied_python/local/lib/python2.7/site-packages/
+(applied_python)[hsun@ip-172-30-0-4 trash_bin]$ cd ..
+(applied_python)[hsun@ip-172-30-0-4 class2]$ rm -r trash_bin/
+(applied_python)[hsun@ip-172-30-0-4 class2]$ python ex1_c_library_path.py 
+Hello
+(applied_python)[hsun@ip-172-30-0-4 class2]$
+
