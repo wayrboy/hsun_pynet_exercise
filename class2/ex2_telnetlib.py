@@ -18,11 +18,11 @@ def login(conn, username, password=''):
     output = conn.read_until("sername:", TELNET_TIMEOUT)
     conn.write(username + '\n')
     if len(password) > 1:
-        output = conn.read_until("ssward:", TELNET_TIMEOUT)
+        output += conn.read_until("ssward:", TELNET_TIMEOUT)
         conn.write(password + '\n')
-        return conn.read_very_eager() 
+        return output 
     else:
-        return conn.read_very_eager()
+        return output
 
 def send_command(conn, cmd):
     cmd = cmd.rstrip()
