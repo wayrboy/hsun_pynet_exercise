@@ -21,8 +21,8 @@ def main():
 
     for each_device in (device1, device2):
         print "*****************"
-        for oid in (SYS_NAME, SYS_NAME):
-            snmp_data = snmp_helper.snmp_get_oid(each_device, oid=oid)
+        for each_oid in (SYS_NAME, SYS_DESCRT):
+            snmp_data = snmp_helper.snmp_get_oid(each_device, oid=each_oid)
             output = snmp_helper.snmp_extract(snmp_data)
 
             print output
