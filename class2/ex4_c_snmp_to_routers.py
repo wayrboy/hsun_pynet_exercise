@@ -18,7 +18,6 @@ def main():
 
     device1 = (ip_addr1, community_string, 161)
     device2 = (ip_addr2, community_string, 161)
-    print type(device1)
 
     for each_device in (device1, device2):
         print "*****************"
