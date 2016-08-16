@@ -15,9 +15,6 @@ class telnet_a_conn(object):
         self.password = password
         self.port = port
         self.timeout = timeout
-
-
-    def create_a_conn(self):
         '''
         use Telnet of telnetlib to connect to a device
         '''
@@ -64,7 +61,7 @@ def main():
     port = 23
     timeout = 6
 
-    conn1 = telnet_a_conn(ip_addr, username, password, port, timeout).create_a_conn()
+    conn1 = telnet_a_conn(ip_addr, username, password, port, timeout)
 
     conn1.login_a_conn()
     print  conn1.send_a_command('show ip int br')
