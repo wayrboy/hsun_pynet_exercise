@@ -1,0 +1,5 @@
+(applied_python)[hsun@ip-172-30-0-4 ~]$ cd SNMP/
+(applied_python)[hsun@ip-172-30-0-4 SNMP]$ pwd
+/home/hsun/SNMP
+(applied_python)[hsun@ip-172-30-0-4 SNMP]$
+

@@ -1,0 +1,11 @@
+(applied_python)[hsun@ip-172-30-0-4 SNMP]$ python
+Python 2.7.10 (default, Jul 20 2016, 20:53:27) 
+[GCC 4.8.3 20140911 (Red Hat 4.8.3-9)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import snmp_helper 
+>>> dir()
+['__builtins__', '__doc__', '__name__', '__package__', 'snmp_helper']
+>>> dir(snmp_helper)
+['__builtins__', '__doc__', '__file__', '__name__', '__package__', 'cmdgen', 'print_function', 'snmp_extract', 'snmp_get_oid', 'snmp_get_oid_v3']
+>>> exit()
+(applied_python)[hsun@ip-172-30-0-4 SNMP]$ 
