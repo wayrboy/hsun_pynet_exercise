@@ -43,9 +43,12 @@ def read_status(filename):
     '''
     read the value of ccmHistoryRunningLastChanged from yaml file
     '''
-    with open(filename, "r") as stream:
-        current = yaml.load(stream)
-        return current[-1]["value"]
+    try:
+        with open(filename, "r") as stream:
+            current = yaml.load(stream)
+            return current[-1]["value"]
+    except IOError:
+        return "NULL"
     '''
     do not use print, it will cause the equaty between
     this func and get_the_current_value to be False,
@@ -61,6 +64,12 @@ def to_save_new(filename, current_value):
 
 value1 = get_the_current_value(device1, a_user)
 
-print read_status("ex1_status.yml") == value1
-print read_status("ex1_status.yml")
-print value1
+if to_save_new("device1_status.yml", value1):
+    print "the previous value is " + read_status("device1_status.yml")
+    print "the current value is " + value1
+    print "no need to change anything"
+else:
+    print "the previous value is " + read_status("device1_status.yml")
+    print "the current value is " + value1
+    save_status("device1_status.yml", value1)
+
