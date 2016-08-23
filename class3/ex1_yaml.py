@@ -55,21 +55,21 @@ def read_status(filename):
     even when you see it by eye, they look equal to each other
     '''
 
-def to_save_new(filename, current_value):
+def no_need_to_save_new(filename, current_value):
     '''
     determin whether to write a new status to yaml file
     '''
     return read_status(filename) == current_value
 
+def config_change_detector(device, user, filename):
+    value = get_the_current_value(device, user)
 
-value1 = get_the_current_value(device1, a_user)
+    if no_need_to_save_new(filename, value):
+        print "no need to change anything"
+    else:
+        print "the previous value is " + read_status(filename)
+        print "the current value is " + value
+        save_status(filename, value) 
 
-if to_save_new("device1_status.yml", value1):
-    print "the previous value is " + read_status("device1_status.yml")
-    print "the current value is " + value1
-    print "no need to change anything"
-else:
-    print "the previous value is " + read_status("device1_status.yml")
-    print "the current value is " + value1
-    save_status("device1_status.yml", value1)
 
+config_change_detector(device1, a_user, "device1_status.yml")
