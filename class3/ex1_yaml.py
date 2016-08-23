@@ -73,3 +73,7 @@ def config_change_detector(device, user, filename):
 
 
 config_change_detector(device1, a_user, "device1_status.yml")
+
+
+def send_email(recipient, subject, message, mail_sender, mail_host, mail_password):
+
