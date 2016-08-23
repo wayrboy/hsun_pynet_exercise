@@ -45,22 +45,22 @@ def read_status(filename):
     '''
     with open(filename, "r") as stream:
         current = yaml.load(stream)
-        return current[-1]
-
+        return current[-1]["value"]
+    '''
+    do not use print, it will cause the equaty between
+    this func and get_the_current_value to be False,
+    even when you see it by eye, they look equal to each other
+    '''
 
 def to_save_new(filename, current_value):
     '''
     determin whether to write a new status to yaml file
     '''
-    if read_status(filename) == current_value:
-        return False
-    else:
-        return True
+    return read_status(filename) == current_value
 
 
 value1 = get_the_current_value(device1, a_user)
 
-while to_save_new("ex1_status.yml", value1):
-    save_status("ex1_status.yml", value1)
-
-read_status("ex1_status.yml")
+print read_status("ex1_status.yml") == value1
+print read_status("ex1_status.yml")
+print value1
