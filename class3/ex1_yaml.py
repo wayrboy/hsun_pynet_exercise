@@ -17,6 +17,17 @@ a_user = (snmp_user, auth_key, encrypt_key)
 device1 = (ip_addr1, port)
 device2 = (ip_addr2, port)
 
+
+import smtplib
+
+from email.mime.text import MIMEText
+
+recipient1 = "zoomhgtk@gmail.com"
+
+mail_host1 = "smtp.gmail.com:587"
+mail_password1 = "lala1atch"
+mail_sender1 = "vooomhgtk@gmail.com"
+
 def get_the_current_value(device, user):
      
     ccmHistoryRunningLastChanged = '1.3.6.1.4.1.9.9.43.1.1.1.0'
@@ -61,6 +72,25 @@ def no_need_to_save_new(filename, current_value):
     '''
     return read_status(filename) == current_value
 
+
+def send_email(recipient, subject, message, mail_sender, mail_host, mail_password):
+    try:
+        smtp_conn = smtplib.SMTP(mail_host)
+        smtp_conn.ehlo()
+        smtp_conn.starttls()
+        smtp_conn.login(mail_sender, mail_password)
+
+        message = MIMEText(message)
+        message['To'] = recipient
+        message['Subject'] = subject
+        message['From'] = mail_sender
+        smtp_conn.sendmail(mail_sender, recipient, message.as_string())
+        smtp_conn.close()
+        print "email sent"
+        return True
+    except:
+        "email sending is failed"
+
 def config_change_detector(device, user, filename):
     value = get_the_current_value(device, user)
 
@@ -69,11 +99,8 @@ def config_change_detector(device, user, filename):
     else:
         print "the previous value is " + read_status(filename)
         print "the current value is " + value
-        save_status(filename, value) 
-
-
+        save_status(filename, value)  
+        send_email(recipient1, "Test", "sent by script", mail_sender1, mail_host1, mail_password1)
+        
 config_change_detector(device1, a_user, "device1_status.yml")
-
-
-def send_email(recipient, subject, message, mail_sender, mail_host, mail_password):
 
