@@ -100,7 +100,11 @@ def config_change_detector(device, user, filename):
         print "the previous value is " + read_status(filename)
         print "the current value is " + value
         save_status(filename, value)  
-        send_email(recipient1, "Test", "sent by script", mail_sender1, mail_host1, mail_password1)
+        if device == device1:
+            subject = "rtr1"
+        else:
+            subject = "rtr2"
+        send_email(recipient1, subject, "sent by script", mail_sender1, mail_host1, mail_password1)
         
 config_change_detector(device1, a_user, "device1_status.yml")
 
