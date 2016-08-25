@@ -53,8 +53,6 @@ def save_status(filename, value):
     status[-1]['value'] = value
     with open(filename, "a") as stream:
         stream.write(yaml.dump(status, default_flow_style = False))
-    print "the following data saved"
-    print status
 
 def read_status(filename):
     '''
@@ -92,36 +90,51 @@ def send_email(recipient, subject, message, mail_sender, mail_host, mail_passwor
         message['From'] = mail_sender
         smtp_conn.sendmail(mail_sender, recipient, message.as_string())
         smtp_conn.close()
-        print "email sent"
+        print "The email has been sent."
         return True
     except:
-        "email sending is failed"
+        "Email sending is failed"
 
 def config_change_detector(device, user, filename):
     value = get_the_current_value(device, user)
     last_change = value[0]
     uptime = value[1]
     dvalue = value[2]
-    
-    if no_need_to_save_new(filename, last_change):
-        print "no need to change anything"
+    if device == device1:
+        device_name = "rtr1"
     else:
-        print "the previous value is " + read_status(filename)
-        print "the current value is " + last_change
+        device_name = "rtr2"
+
+    if no_need_to_save_new(filename, last_change):
+        print "Nothing changed on %s" % device_name
+        print "****************************", "\n"
+    else:
         save_status(filename, last_change)
+        print "Change detected on %s" % device_name
 
         dvalue_in_seconds = dvalue/100
         change_was_at = datetime.now() - timedelta(seconds=dvalue_in_seconds)
         change_was_at = str(change_was_at)
 
         if device == device1:
-            subject = "rtr1"
+            subject = "rtr1 has been changed"
         else:
-            subject = "rtr2"
+            subject = "rtr2 has been changed"
 
         message = "the change happend at %s PDT" % change_was_at
 
         send_email(recipient1, subject, message, mail_sender1, mail_host1, mail_password1)
-        
-config_change_detector(device1, a_user, "device1_status.yml")
+        print "****************************", "\n"
+#config_change_detector(device1, a_user, "device1_status.yml")
 
+def main():
+    for device in (device1, device2):
+        if device == device1:
+            dest_filename = "device1_status.yml"
+        else:
+            dest_filename = "device2_status.yml"
+            
+        config_change_detector(device, a_user, dest_filename)
+
+if __name__ == "__main__":
+    main()
