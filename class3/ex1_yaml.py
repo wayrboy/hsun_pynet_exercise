@@ -29,6 +29,11 @@ mail_password1 = "lala1atch"
 mail_sender1 = "vooomhgtk@gmail.com"
 
 def get_the_current_value(device, user):
+    '''
+    to get the current value of ccmHistoryRunningLastChanged
+    and the value of uptime
+    to calculate out how many hundredths of seconds did the change happen before NOW
+    '''
      
     ccmHistoryRunningLastChanged = '1.3.6.1.4.1.9.9.43.1.1.1.0'
     sysUptime = '1.3.6.1.2.1.1.3.0'
@@ -78,6 +83,9 @@ def no_need_to_save_new(filename, current_value):
 
 
 def send_email(recipient, subject, message, mail_sender, mail_host, mail_password):
+    '''
+    use smtplib to send email via gmail server, the conn.starttls() is indispensable
+    '''
     try:
         smtp_conn = smtplib.SMTP(mail_host)
         smtp_conn.ehlo()
@@ -96,6 +104,10 @@ def send_email(recipient, subject, message, mail_sender, mail_host, mail_passwor
         "Email sending is failed"
 
 def config_change_detector(device, user, filename):
+    '''
+    call no_need_to_save_new to determin if there is a new change
+    if there is a new change, call send_email to send email
+    '''
     value = get_the_current_value(device, user)
     last_change = value[0]
     uptime = value[1]
@@ -128,6 +140,10 @@ def config_change_detector(device, user, filename):
 #config_change_detector(device1, a_user, "device1_status.yml")
 
 def main():
+    '''
+    use for loop to run for two devices
+    '''
+
     for device in (device1, device2):
         if device == device1:
             dest_filename = "device1_status.yml"
