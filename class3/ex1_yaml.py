@@ -1,5 +1,5 @@
 import snmp_helper
-from datetime import datetime
+from datetime import datetime, timedelta
 import yaml
 # Uptime when running config last changed
 
@@ -31,8 +31,14 @@ mail_sender1 = "vooomhgtk@gmail.com"
 def get_the_current_value(device, user):
      
     ccmHistoryRunningLastChanged = '1.3.6.1.4.1.9.9.43.1.1.1.0'
+    sysUptime = '1.3.6.1.2.1.1.3.0'
     output = snmp_helper.snmp_get_oid_v3(device, user, ccmHistoryRunningLastChanged)
-    value = snmp_helper.snmp_extract(output)
+    last_change = snmp_helper.snmp_extract(output)
+    output = snmp_helper.snmp_get_oid_v3(device, user, sysUptime)
+    uptime = snmp_helper.snmp_extract(output)
+    dvalue = int(uptime) - int(last_change)
+    value = (last_change, uptime, dvalue)
+
     return value
 
 
@@ -93,18 +99,29 @@ def send_email(recipient, subject, message, mail_sender, mail_host, mail_passwor
 
 def config_change_detector(device, user, filename):
     value = get_the_current_value(device, user)
-
-    if no_need_to_save_new(filename, value):
+    last_change = value[0]
+    uptime = value[1]
+    dvalue = value[2]
+    
+    if no_need_to_save_new(filename, last_change):
         print "no need to change anything"
     else:
         print "the previous value is " + read_status(filename)
-        print "the current value is " + value
-        save_status(filename, value)  
+        print "the current value is " + last_change
+        save_status(filename, last_change)
+
+        dvalue_in_seconds = dvalue/100
+        change_was_at = datetime.now() - timedelta(seconds=dvalue_in_seconds)
+        change_was_at = str(change_was_at)
+
         if device == device1:
             subject = "rtr1"
         else:
             subject = "rtr2"
-        send_email(recipient1, subject, "sent by script", mail_sender1, mail_host1, mail_password1)
+
+        message = "the change happend at %s PDT" % change_was_at
+
+        send_email(recipient1, subject, message, mail_sender1, mail_host1, mail_password1)
         
 config_change_detector(device1, a_user, "device1_status.yml")
 
