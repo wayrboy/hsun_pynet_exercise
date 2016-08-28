@@ -1,7 +1,8 @@
+#!/usr/bin/env python
+
 import snmp_helper
 from datetime import datetime, timedelta
 import yaml
-# Uptime when running config last changed
 
 ip_addr1 = "184.105.247.70"
 ip_addr2 = "184.105.247.71"
