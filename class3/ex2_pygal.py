@@ -66,7 +66,10 @@ def get_graph(filename, graphfile):
 
 
 def get_data_from_yaml(filename, key):
-    
+    '''
+    get data from yaml file, reform the data into list
+    the x-label will have 12 5-minutes
+    '''
     with open(filename, "r") as stream:
         data = yaml.load(stream)
 
@@ -89,7 +92,10 @@ def get_data_from_yaml(filename, key):
     return listValue
 
 def get_graph_from_OIDs(device, inboundOID, outboundOID, svgfilename):
-
+    '''
+    get data from OIDs, then make them into yaml file, then read yaml to make svg
+    yaml file will be deleted after svg created
+    '''
     try:
         empty_file("something.yaml")
     except:
