@@ -12,6 +12,7 @@ def create_a_conn(ip_addr, port, username, password):
     conn_session.load_system_host_keys()
     conn_session.connect(ip_addr, port, username, password, look_for_keys = False, allow_agent = False)
     conn = conn_session.invoke_shell()# to keep the session go on
+    conn.keep_this = conn_session
 
     time.sleep(1)
     conn.send("terminal length 0\n")
@@ -45,7 +46,6 @@ def main():
     password = '88newclass'
     
     conn1 = create_a_conn(ip_addr, port, username, password)
-    print type(conn1)
     outp = send_a_command(conn1, "show version")
     print outp
 
