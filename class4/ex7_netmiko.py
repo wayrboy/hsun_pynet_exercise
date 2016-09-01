@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 from netmiko import ConnectHandler
+from getpass import getpass
 
 rtr2 = {
     'device_type': 'cisco_ios',
@@ -10,15 +11,14 @@ rtr2 = {
     'port': '22',
     }
 
-print rtr2
-rtr2['password'] = '88newclass'
+rtr2['password'] = getpass()
 def main():
 	'''
 	Use main() to make the code have a clear structure
 	Use netmiko to change the logging buffer on rtr2
 	'''
 	conn1 = ConnectHandler(**rtr2)
-	commands = ['logging buffered 22333']
+	commands = ['logging buffered 22333'] 
 	conn1.send_config_set(commands)
 
 	outp = conn1.send_command("show run | inc logging buffer")
