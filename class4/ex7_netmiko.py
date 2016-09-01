@@ -1,18 +1,22 @@
 #! /usr/bin/env python
 
-from ex6_netmiko import rtr2
-from getpass import getpass
 from netmiko import ConnectHandler
 
-password = getpass()
+rtr2 = {
+    'device_type': 'cisco_ios',
+    'ip': '184.105.247.71',
+    'username': 'pyclass',
+    'secret': '',
+    'port': '22',
+    }
 
+print rtr2
+rtr2['password'] = '88newclass'
 def main():
 	'''
 	Use main() to make the code have a clear structure
 	Use netmiko to change the logging buffer on rtr2
 	'''
-	rtr2['password'] = getpass()
-	
 	conn1 = ConnectHandler(**rtr2)
 	commands = ['logging buffered 22333']
 	conn1.send_config_set(commands)
@@ -21,3 +25,5 @@ def main():
 
 	print "The logging buffer on rtr2 has been changed to following: \n %s" % outp
 
+if __name__ == "__main__":
+    main()
