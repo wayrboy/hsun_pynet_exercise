@@ -57,15 +57,6 @@ def printARP(device):
     outp += "*********************\n"
     sys.stdout.write(outp)
 
-class myThread(threading.Thread):
-    def __init__(self,  device):
-        threading.Thread.__init__(self)
-        self.device = device
-    def run(self):
-        threadLock1 = threading.Lock()
-        threadLock1.acquire()
-        printARP(self.device)
-        threadLock1.release()
 
 def main():
     '''
@@ -76,11 +67,6 @@ def main():
     thread3 = threading.Thread(target=printARP, args=[srx])
 
 
-    '''
-    thread1 = myThread(rtr1)
-    thread2 = myThread(rtr2)
-    thread3 = myThread(srx)
-    '''
 
     thread1.start()
     thread2.start()
