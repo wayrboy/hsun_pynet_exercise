@@ -1,0 +1,6 @@
+---
+- name: called by site.yml
+  template: src=access_switch.j2 dest=/home/hsun/hsun_pynet_exercise/class5/exercise1/CFGS/{{item.hostname}}.txt
+
+  with_items:
+          - "{{switch_vars}}"

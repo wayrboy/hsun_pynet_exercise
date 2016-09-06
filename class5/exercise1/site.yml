@@ -1,0 +1,6 @@
+---
+- name: Generate files for exerciese1
+  hosts: localhost
+
+  roles:
+          - switch
