@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  name: Generate config file with if conditional
+
+  roles:
+          - access_switch
