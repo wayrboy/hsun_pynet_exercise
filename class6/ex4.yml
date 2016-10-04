@@ -1,0 +1,34 @@
+---
+
+- name: Ex4
+  hosts: arista
+
+  tasks:
+          - name: Configure ethernet7 to access mode, access VLAN1
+            eos_switchport: name=Ethernet7 mode=access access_vlan=1 trunk_allowed_vlans=1-4094
+                    username={{ eapi_username }}
+                    password={{ eapi_password }}
+                    host={{ eapi_hostname }}
+                    port={{ eapi_port }}
+                    transport=https
+
+          - name: Set ethernet7 to default
+            eos_interface: name=Ethernet7 description=''
+                    username={{ eapi_username }}
+                    password={{ eapi_password }}
+                    host={{ eapi_hostname }}
+                    port={{ eapi_port }}
+                    transport=https
+
+          - name: Remove VLANs
+            eos_vlan: name={{item.name}} vlanid={{item.vlanid}} state=absent
+                    username={{ eapi_username }}
+                    password={{ eapi_password }}
+                    host={{ eapi_hostname }}
+                    port={{ eapi_port }}
+                    transport=https
+
+            with_items:
+                    - {name: hs1, vlanid: 991}
+                    - {name: hs2, vlanid: 992}
+                    - {name: hs2, vlanid: 993}

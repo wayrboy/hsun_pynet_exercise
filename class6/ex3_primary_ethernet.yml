@@ -1,0 +1,13 @@
+---
+
+- name: Set ethernet7 again
+  hosts: arista
+
+  tasks:
+        - name: configure trunk native_vlan and allowd_vlans for ethernet7
+          eos_switchport: name=Ethernet7 mode=trunk trunk_native_vlan=1 trunk_allowed_vlans=221,222,223
+                  username={{ eapi_username }}
+                  password={{ eapi_password }}
+                  host={{ eapi_hostname }}
+                  port={{ eapi_port }}
+                  transport=https

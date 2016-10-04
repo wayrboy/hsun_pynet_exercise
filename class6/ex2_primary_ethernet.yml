@@ -1,0 +1,21 @@
+---
+
+- name: Use Arista module to configure a interface
+  hosts: arista
+
+  tasks:
+          - name: Set the description of Ethernet7
+            eos_interface: name=Ethernet7 description="*** IN USE ***"
+                    username={{ eapi_username }}
+                    password={{ eapi_password }}
+                    host={{ eapi_hostname }}
+                    port={{ eapi_port }}
+                    transport=https
+
+          - name: Set access mode and vlan
+            eos_switchport: name=Ethernet7 mode=access access_vlan=222
+                    username={{ eapi_username }}
+                    password={{ eapi_password }}
+                    host={{ eapi_hostname }}
+                    port={{ eapi_port }}
+                    transport=https
