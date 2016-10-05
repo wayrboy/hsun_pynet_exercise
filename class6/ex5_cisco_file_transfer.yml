@@ -7,4 +7,11 @@
   tasks:
           - name: Transfer a small file to rtr1
             cisco_file_transfer:
-                    source_file="/home/hsun/"
+                    source_file="/home/hsun/hsun_pynet_exercise/class6/test_file.txt"
+                    dest_file=ex5_hsun_test_file.txt
+                    overwrite=True
+                    enable_scp=True
+                    host={{ host }}
+                    port={{ port }}
+                    username={{ username }}
+                    password={{ password }}
