@@ -1,0 +1,10 @@
+---
+
+- name: cisco_file_transfer
+  hosts: pynet-rtr1
+  gather_facts: False
+
+  tasks:
+          - name: Transfer a small file to rtr1
+            cisco_file_transfer:
+                    source_file="/home/hsun/"
